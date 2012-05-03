@@ -7,6 +7,11 @@ Steering is a bridge to the [Handlebars.js][1] template precompiler. By precompi
     Steering.compile(File.read("template.hb"))
     # => "function(...) {...}"
     
+    # This will save a file called "template.hb.js" in the same folder as "template.hb" and return the size of the resulting file in bytes
+    file = "template.hb"
+    Steering.compile_to_file(File.read(file), File.dirname(file) + "/" + File.basename(file) + ".js")
+    # => "234"
+    
     context = Steering.context_for("Hello {{ name }}")
     context.call("template", :name => "Andrew")
     # => "Hello Andrew"
