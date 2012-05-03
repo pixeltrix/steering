@@ -47,6 +47,11 @@ module Steering
       template = template.read if template.respond_to?(:read)
       Source.context.call("Handlebars.precompile", template, { :knownHelpers => known_helpers })
     end
+    
+    def compile_to_file(template, target)
+      compiled_template = compile(template)
+      File.open(target, 'w') {|f| f.write(compiled_template) }
+    end
 
     def context_for(template, extra = "")
       ExecJS.compile("#{Source.runtime}; #{extra}; var template = Handlebars.template(#{compile(template)})")
