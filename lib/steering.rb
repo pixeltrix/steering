@@ -52,7 +52,7 @@ module Steering
       template = File.read(template_file)
       name = File.basename(template_file, ".handlebars")
       compiled_template = compile(template)
-      File.open(target, 'w') {|f| f.write("\nHandlebars.templates['#{name}'] = Handlebars.template(#{compiled_template});\n") }
+      File.open(target, 'w') {|f| f.write("\nvar Handlebars.templates = Handlebars.templates || {};\nHandlebars.templates['#{name}'] = Handlebars.template(#{compiled_template});\n") }
     end
 
     def context_for(template, extra = "")
