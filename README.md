@@ -2,15 +2,20 @@
 
 Steering is a bridge to the [Handlebars.js][1] template precompiler. By precompiling your templates you can speed up page loading in two ways - firstly the final compilation step is much quicker as the template source code does not have to be parsed and the size of the library can be reduced by using the smaller runtime library if all your templates are precompiled.
 
+    $ irb
+    
     require "steering"
+    # => true
     
-    Steering.compile(File.read("template.hb"))
-    # => "function(...) {...}"
+    Steering.compile(File.read("example/mytemplate.handlebars"))
+    # => "function(Handlebars,...) {...}"
     
-    # This will save a file called "template.hb.js" in the same folder as "template.hb" and return the size of the resulting file in bytes
-    file = "template.hb"
-    Steering.compile_to_file(File.read(file), File.dirname(file) + "/" + File.basename(file) + ".js")
-    # => "234"
+    # This will create a file called "mytemplate.handlebars.js" in the supplied example folder and return the size of the resulting file in bytes.
+    # Make sure to load "index.html" before and after in your favourite browser!
+    file = "example/mytemplate.handlebars"
+    # => "example/mytemplate.handlebars"
+    Steering.compile_to_file(file, File.dirname(file) + "/" + File.basename(file) + ".js")
+    # => 1069
     
     context = Steering.context_for("Hello {{ name }}")
     context.call("template", :name => "Andrew")
