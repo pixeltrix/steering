@@ -49,3 +49,14 @@ The structure and code patterns for this gem were derived from the [Ruby Eco][4]
 [2]: https://github.com/sstephenson/execjs
 [3]: https://github.com/sstephenson/execjs/blob/master/README.md
 [4]: https://github.com/sstephenson/ruby-eco
+
+## Changelog
+
+### 1.1.0
+
+* Added 'compile_to_file' method.
+* Added precompile workflow example files.
+
+### 1.0.0
+
+Initial version.
