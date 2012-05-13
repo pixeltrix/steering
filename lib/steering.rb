@@ -48,8 +48,24 @@ module Steering
       Source.context.call("Handlebars.precompile", template, { :knownHelpers => known_helpers })
     end
 
+    def compile_to_file(template_file, target)
+      File.open(target, 'w') {|f| f.write(precompile_from_file(template_file)) }
+    end
+    
+    def precompile_from_file(template_file)
+      template = File.read(template_file)
+      name = File.basename(template_file, ".handlebars")
+      compiled_template = compile(template)
+      return "\nHandlebars.templates = Handlebars.templates || {};\nHandlebars.templates['#{name}'] = Handlebars.template(#{compiled_template});\n"
+    end
+
     def context_for(template, extra = "")
       ExecJS.compile("#{Source.runtime}; #{extra}; var template = Handlebars.template(#{compile(template)})")
+    end
+
+    def context_for_file_precompile(template_file, extra = "")
+      name = File.basename(template_file, ".handlebars")
+      ExecJS.compile("#{Source.runtime}; #{extra}; #{precompile_from_file(template_file)}; template = Handlebars.templates['#{name}']")
     end
 
     def known_helpers

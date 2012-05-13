@@ -24,6 +24,21 @@ class SteeringTest < Test::Unit::TestCase
     end
   end
 
+  def test_compile_file
+    file = "example/mytemplate.handlebars"
+    compiled_file = File.dirname(file) + "/" + File.basename(file) + ".js"
+    
+    # making sure we leave things as they were
+    should_delete_compiled = true unless File.exist?(compiled_file)
+    File.delete(compiled_file) if File.exist?(compiled_file)
+    
+    Steering.compile_to_file(file, compiled_file)
+    context_for_file_precompile = Steering.context_for_file_precompile(compiled_file)
+    assert_equal Steering.render(File.read(compiled_file), :title => 'My title'), context_for_file_precompile.call("template", :title => 'My title')
+    
+    File.delete(compiled_file) if should_delete_compiled
+  end
+
   def test_context_for
     context = Steering.context_for("Hello {{ name }}")
     assert_equal "Hello Andrew", context.call("template", :name => "Andrew")

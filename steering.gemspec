@@ -6,8 +6,8 @@ Gem::Specification.new do |gem|
   gem.name          = "steering"
   gem.version       = Steering::VERSION
   gem.platform      = Gem::Platform::RUBY
-  gem.authors       = ["Andrew White"]
-  gem.email         = ["andyw@pixeltrix.co.uk"]
+  gem.authors       = ["Andrew White", "Daniel Demmel"]
+  gem.email         = ["andyw@pixeltrix.co.uk", "dain@danieldemmel.me"]
   gem.homepage      = "https://github.com/pixeltrix/steering"
 
   gem.summary       = %q{Ruby Handlebars.js Compiler}

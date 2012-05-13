@@ -2,10 +2,20 @@
 
 Steering is a bridge to the [Handlebars.js][1] template precompiler. By precompiling your templates you can speed up page loading in two ways - firstly the final compilation step is much quicker as the template source code does not have to be parsed and the size of the library can be reduced by using the smaller runtime library if all your templates are precompiled.
 
-    require "steering"
+    $ irb
     
-    Steering.compile(File.read("template.hb"))
-    # => "function(...) {...}"
+    require "steering"
+    # => true
+    
+    Steering.compile(File.read("example/mytemplate.handlebars"))
+    # => "function(Handlebars,...) {...}"
+    
+    # This will create a file called "mytemplate.handlebars.js" in the supplied example folder and return the size of the resulting file in bytes.
+    # Make sure to load "index.html" before and after in your favourite browser!
+    file = "example/mytemplate.handlebars"
+    # => "example/mytemplate.handlebars"
+    Steering.compile_to_file(file, File.dirname(file) + "/" + File.basename(file) + ".js")
+    # => 1069
     
     context = Steering.context_for("Hello {{ name }}")
     context.call("template", :name => "Andrew")
@@ -39,3 +49,14 @@ The structure and code patterns for this gem were derived from the [Ruby Eco][4]
 [2]: https://github.com/sstephenson/execjs
 [3]: https://github.com/sstephenson/execjs/blob/master/README.md
 [4]: https://github.com/sstephenson/ruby-eco
+
+## Changelog
+
+### 1.1.0
+
+* Added 'compile_to_file' method.
+* Added precompile workflow example files.
+
+### 1.0.0
+
+Initial version.
