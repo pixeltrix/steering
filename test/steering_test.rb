@@ -4,6 +4,10 @@ require "test/unit"
 
 class SteeringTest < Test::Unit::TestCase
   JS_FUNCTION_PATTERN = /^function\s*\(.*?\)\s*\{.*\}$/m
+  HB_PREAMBLE         = /Handlebars\.templates\s*=\s*Handlebars.templates\s\|\|\s*\{\};/
+  HB_ASSIGNMENT       = /Handlebars\.templates\['\w+'\]\s*=/
+  HB_TEMPLATE         = /Handlebars\.template\(function\s*\(.*?\)\s*\{.*\}\);/m
+  HB_TEMPLATE_PATTERN = /^\n#{HB_PREAMBLE}\n#{HB_ASSIGNMENT}\s*#{HB_TEMPLATE}\s*$/m
 
   def test_version
     assert_equal Steering::Source::VERSION, Steering.version
@@ -26,17 +30,14 @@ class SteeringTest < Test::Unit::TestCase
 
   def test_compile_file
     file = "example/mytemplate.handlebars"
-    compiled_file = File.dirname(file) + "/" + File.basename(file) + ".js"
-    
-    # making sure we leave things as they were
-    should_delete_compiled = true unless File.exist?(compiled_file)
-    File.delete(compiled_file) if File.exist?(compiled_file)
-    
+    compiled_file = "example/mytemplate.js"
+
     Steering.compile_to_file(file, compiled_file)
-    context_for_file_precompile = Steering.context_for_file_precompile(compiled_file)
-    assert_equal Steering.render(File.read(compiled_file), :title => 'My title'), context_for_file_precompile.call("template", :title => 'My title')
-    
-    File.delete(compiled_file) if should_delete_compiled
+    compiled_source = File.read(compiled_file)
+
+    assert_match HB_TEMPLATE_PATTERN, compiled_source
+  ensure
+    File.delete(compiled_file) if File.exists?(compiled_file)
   end
 
   def test_context_for
