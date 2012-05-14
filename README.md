@@ -14,7 +14,7 @@ templates are precompiled.
     Steering.compile(File.read("example/mytemplate.handlebars"))
     # => "function(Handlebars,...) {...}"
 
-    # This will create a file called "mytemplate.handlebars.js" in the supplied
+    # This will create a file called "mytemplate.js" in the supplied
     # example folder and return the size of the resulting file in bytes.
     # Make sure to load "index.html" before and after in your favourite browser!
     Steering.compile_to_file("example/mytemplate.handlebars", "example/mytemplate.js")
