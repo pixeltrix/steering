@@ -1,5 +1,7 @@
 # Steering
 
+[![Build Status][build]][travis] [![Dependency Status][depends]][gemnasium]
+
 Steering is a bridge to the [Handlebars.js][1] template precompiler. By precompiling
 your templates you can speed up page loading in two ways - firstly the final compilation
 step is much quicker as the template source code does not have to be parsed and the
@@ -107,3 +109,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [2]: https://github.com/sstephenson/execjs
 [3]: https://github.com/sstephenson/execjs/blob/master/README.md
 [4]: https://github.com/sstephenson/ruby-eco
+[build]: https://secure.travis-ci.org/pixeltrix/steering.png
+[travis]: http://travis-ci.org/pixeltrix/steering
+[depends]: https://gemnasium.com/pixeltrix/steering.png?travis
+[gemnasium]: https://gemnasium.com/pixeltrix/steering
