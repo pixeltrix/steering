@@ -66,8 +66,8 @@ module Steering
       Source.known_helpers
     end
 
-    def render(template, locals = {})
-      context_for(template).call("template", locals)
+    def render(template, locals = {}, extra = "")
+      context_for(template, extra).call("template", locals)
     end
   end
 end
