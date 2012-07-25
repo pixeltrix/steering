@@ -48,13 +48,13 @@ module Steering
       Source.context.call("Handlebars.precompile", template, { :knownHelpers => known_helpers })
     end
 
-    def compile_to_file(template, file, extension = ".handlebars")
+    def compile_to_file(template, file, extension = ".handlebars", registerPartial = false)
       File.open(file, 'w') do |f|
         name = File.basename(template, extension)
         template = File.read(template)
         f.write("\nHandlebars.templates = Handlebars.templates || {};")
         f.write("\nHandlebars.templates['#{name}'] = Handlebars.template(#{compile(template)});\n")
-        f.write("\nHandlebars.registerPartial('#{name}', Handlebars.templates['#{name}']);\n")
+        f.write("\nHandlebars.registerPartial('#{name}', Handlebars.templates['#{name}']);\n") if registerPartial
       end
     end
 
