@@ -54,6 +54,7 @@ module Steering
         template = File.read(template)
         f.write("\nHandlebars.templates = Handlebars.templates || {};")
         f.write("\nHandlebars.templates['#{name}'] = Handlebars.template(#{compile(template)});\n")
+        f.write("\nHandlebars.registerPartial('#{name}', Handlebars.templates['#{name}']);\n")
       end
     end
 
