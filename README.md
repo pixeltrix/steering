@@ -73,6 +73,10 @@ Report bugs on the [GitHub issue tracker](http://github.com/pixeltrix/steering/i
 
 ## Changelog
 
+### 1.1.1
+
+* Added 'registerPartial' option to 'compile_to_file' method, which adds JS code to register Handlebars template as partial too. *Daniel Demmel*
+
 ### 1.1.0
 
 * Added 'compile_to_file' method. *Daniel Demmel*
