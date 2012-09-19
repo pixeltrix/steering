@@ -3,6 +3,7 @@ require "stringio"
 require "test/unit"
 
 class SteeringTest < Test::Unit::TestCase
+  FIXTURE_PATH                = File.expand_path("../fixtures", __FILE__)
   JS_FUNCTION_PATTERN         = /^function\s*\(.*?\)\s*\{.*\}$/m
   HB_PREAMBLE                 = /Handlebars\.templates\s*=\s*Handlebars.templates\s\|\|\s*\{\};/
   HB_ASSIGNMENT               = /Handlebars\.templates\['\w+'\]\s*=/
@@ -31,8 +32,8 @@ class SteeringTest < Test::Unit::TestCase
   end
 
   def test_compile_file
-    file = "example/mytemplate.handlebars"
-    compiled_file = "example/mytemplate.js"
+    file = fixture_path("hello.handlebars")
+    compiled_file = fixture_path("hello.js")
 
     Steering.compile_to_file(file, compiled_file)
     compiled_source = File.read(compiled_file)
@@ -42,11 +43,35 @@ class SteeringTest < Test::Unit::TestCase
     File.delete(compiled_file) if File.exists?(compiled_file)
   end
 
-  def test_compile_file_partial
-    file = "example/mytemplate.handlebars"
-    compiled_file = "example/mytemplate.js"
+  def test_compile_file_extension
+    file = fixture_path("foo.hb")
+    compiled_file = fixture_path("foo.js")
 
-    Steering.compile_to_file(file, compiled_file, ".handlebars", true)
+    Steering.compile_to_file(file, compiled_file, ".hb")
+    compiled_source = File.read(compiled_file)
+
+    assert_match HB_TEMPLATE_PATTERN, compiled_source
+  ensure
+    File.delete(compiled_file) if File.exists?(compiled_file)
+  end
+
+  def test_compile_file_extension_option
+    file = fixture_path("bar.hb")
+    compiled_file = fixture_path("bar.js")
+
+    Steering.compile_to_file(file, compiled_file, :extension => ".hb")
+    compiled_source = File.read(compiled_file)
+
+    assert_match HB_TEMPLATE_PATTERN, compiled_source
+  ensure
+    File.delete(compiled_file) if File.exists?(compiled_file)
+  end
+
+  def test_compile_file_partial
+    file = fixture_path("hello.handlebars")
+    compiled_file = fixture_path("hello.js")
+
+    Steering.compile_to_file(file, compiled_file, :partial => true)
     compiled_source = File.read(compiled_file)
 
     assert_match HB_TEMPLATE_PATTERN_PARTIAL, compiled_source
@@ -72,5 +97,11 @@ class SteeringTest < Test::Unit::TestCase
     rescue ExecJS::ProgramError => e
       assert_equal "bar", e.message
     end
+  end
+
+  private
+
+  def fixture_path(path)
+    File.join(FIXTURE_PATH, path)
   end
 end
