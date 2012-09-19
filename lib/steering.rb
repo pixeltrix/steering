@@ -66,7 +66,9 @@ module Steering
       Source.known_helpers
     end
 
-    def render(template, locals = {}, extra = "")
+    def render(template, *args)
+      locals = args.last.is_a?(Hash) ? args.pop : {}
+      extra = args.first.to_s
       context_for(template, extra).call("template", locals)
     end
   end
