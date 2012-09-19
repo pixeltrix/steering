@@ -73,6 +73,11 @@ Report bugs on the [GitHub issue tracker](http://github.com/pixeltrix/steering/i
 
 ## Changelog
 
+### 1.2.0
+
+* Added 'registerPartial' option to 'compile_to_file' method, which adds JS code to register Handlebars template as partial too. *Daniel Demmel*
+* 'render' method now takes 'extra' argument which is passed on to 'context_for'. This can be used to pass precompiled partials or helpers to the ExecJS context. *Daniel Demmel*
+
 ### 1.1.1
 
 * Bumped steering-source version to 1.0.rc.1
