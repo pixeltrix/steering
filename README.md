@@ -73,6 +73,10 @@ Report bugs on the [GitHub issue tracker](http://github.com/pixeltrix/steering/i
 
 ## Changelog
 
+### 1.1.1
+
+* Bumped steering-source version to 1.0.rc.1
+
 ### 1.1.0
 
 * Added 'compile_to_file' method. *Daniel Demmel*
