@@ -18,6 +18,6 @@ Gem::Specification.new do |gem|
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.require_paths = ["lib"]
 
-  gem.add_runtime_dependency 'execjs', '>= 1.3.0'
+  gem.add_runtime_dependency 'execjs', ['>= 1.3.0', '< 2.1.0']
   gem.add_runtime_dependency 'steering-source', '>= 1.3.0'
 end
