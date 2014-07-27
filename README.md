@@ -73,6 +73,10 @@ Report bugs on the [GitHub issue tracker](http://github.com/pixeltrix/steering/i
 
 ## Changelog
 
+### 1.3.0
+
+* Bunped steering-source version to 1.3.0
+
 ### 1.2.0
 
 * The `compile_to_file` method now takes an options hash which takes the following options:
